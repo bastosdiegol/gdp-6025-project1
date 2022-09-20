@@ -12,16 +12,22 @@ public:
 	// Values of the Matrix
 	std::vector< std::vector<int> > matrixValues;
 
-	// Default Constructor
-	MyMatrix();
+	// Overloaded Constructor
+	// Accepts the number of rows and columns and set the matrix
+	// The values will be 0
+	MyMatrix(unsigned int rows, unsigned int columns);
+
+	// Overloaded Constructor
+	// Accepts a value and number of rows and columns and fill the matrix with the same value
+	MyMatrix(unsigned int rows, unsigned int columns, int value);
 
 	// Overloaded Constructor
 	// Accepts a 2D vector and assignt it to the Matrix 
 	MyMatrix(std::vector< std::vector<int> > newValues);
 
-	// Overloaded Constructor
-	// Accepts another Matrix
-	MyMatrix(const MyMatrix& newMatrix);
+	// Copy Constructor
+	// Accepts a reference of another Matrix
+	MyMatrix(const MyMatrix& rhs);
 
 	// Destructor
 	~MyMatrix();
@@ -85,4 +91,7 @@ public:
 	// Matrix * Its Inverted Matrix = Identity Matrix
 	// BlackBoxTest Case #5 (?)
 	MyMatrix getInverseMatrix2x2();
+
+	// Outputs the values of the matrix visually on the console
+	void printMatrix();
 };
