@@ -96,7 +96,8 @@ MyMatrix MyMatrix::operator-(const MyMatrix& rhs) {
 		}
 	}
 	else {
-		std::cout << "Subtraction operation could not be done. Matrices are not Defined.";
+		throw("Subtraction operation could not be done. Matrices are not Defined.");
+		//std::cout << "Subtraction operation could not be done. Matrices are not Defined.";
 	}
 	return operationResult;
 }
@@ -204,7 +205,8 @@ bool MyMatrix::isDefined(char operation, const MyMatrix& rhs) {
 		}
 	}
 	else {
-		throw("Exception: Invalid Operation argument on a isDefined call.");
+		std::cout << "Exception: Invalid Operation argument on a isDefined call." << std::endl;
+		return false;
 	}
 }
 
@@ -224,7 +226,11 @@ MyMatrix MyMatrix::getIdentityMatrix() {
 // | c d | 
 // WhiteBoxTest Case #5 (?)
 int MyMatrix::getDeterminant2x2() {
-	return -1;
+	if (this->rows == 2 && this->columns == 2) {
+		return (	(this->matrixValues[0][0] * this->matrixValues[1][1])
+			      -	(this->matrixValues[0][1] * this->matrixValues[1][0]) );
+	}
+	throw("Exception: Matrix type missmatch. Determinant2x2 is Requires Matrix2x2!");
 }
 
 // Returns the Inverted Matrix of a 2x2 Matrix
