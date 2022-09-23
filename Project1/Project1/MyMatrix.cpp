@@ -11,9 +11,9 @@ MyMatrix::MyMatrix(unsigned int rows, unsigned int columns) {
 	this->columns = columns;
 
 	// Resize the Vector rows and columns accordingly
-	matrixValues.resize(rows);
+	this->matrixValues.resize(rows);
 	for (int i = 0; i < rows; i++) {
-		matrixValues[i].resize(columns, 0);
+		this->matrixValues[i].resize(columns, 0);
 	}
 }
 
@@ -25,9 +25,9 @@ MyMatrix::MyMatrix(unsigned int rows, unsigned int columns, int value) {
 	this->columns = columns;
 
 	// Resize the Vector rows and columns accordingly
-	matrixValues.resize(rows);
+	this->matrixValues.resize(rows);
 	for (int i = 0; i < rows; i++) {
-		matrixValues[i].resize(columns, value);
+		this->matrixValues[i].resize(columns, value);
 	}
 }
 
@@ -35,16 +35,16 @@ MyMatrix::MyMatrix(unsigned int rows, unsigned int columns, int value) {
 // Accepts a 2D vector and assignt it to the Matrix 
 MyMatrix::MyMatrix(std::vector< std::vector<int> > newValues) {
 	// Set values for rows and columns
-	rows = newValues.size();
-	columns = newValues[0].size();
+	this->rows = newValues.size();
+	this->columns = newValues[0].size();
 
 	// Resize the Vector rows and columns accordingly
 	// And pass the values to each position
-	matrixValues.resize(rows);
+	this->matrixValues.resize(rows);
 	for (int i = 0; i < rows; i++) {
-		matrixValues[i].resize(columns);
+		this->matrixValues[i].resize(columns);
 	}
-	matrixValues = newValues;
+	this->matrixValues = newValues;
 	/*for (int iR = 0; iR < rows; iR++) {
 		matrixValues[iR].resize(columns);
 		for (int iC = 0; iC < columns; iC++) {
@@ -57,9 +57,9 @@ MyMatrix::MyMatrix(std::vector< std::vector<int> > newValues) {
 // Accepts a reference of another Matrix
 MyMatrix::MyMatrix(const MyMatrix& rhs) {
 	// Copy the Class variables
-	rows		 = rhs.rows;
-	columns		 = rhs.columns;
-	matrixValues = rhs.matrixValues;
+	this->rows			 = rhs.rows;
+	this->columns		 = rhs.columns;
+	this->matrixValues	 = rhs.matrixValues;
 }
 
 // Destructor
@@ -67,28 +67,89 @@ MyMatrix::~MyMatrix() {
 
 }
 
-// Assignment Operator Overload
+// Addition Operator Overload
 // WhiteBoxTest Case #1 (?)
 MyMatrix MyMatrix::operator+(const MyMatrix& rhs) {
-	return MyMatrix(1,1,1);
+	MyMatrix operationResult(this->rows, this->columns, 0);
+	if (this->isDefined('+', rhs)) {
+		for (int i = 0; i < this->rows; i++) {
+			for (int j = 0; j < this->columns; j++) {
+				operationResult.matrixValues[i][j] = this->matrixValues[i][j] + rhs.matrixValues[i][j];
+			}
+		}
+	}
+	else {
+		std::cout << "Addition operation could not be done. Matrices are not Defined.";
+	}
+	return operationResult;
 }
 
 // Subtract Operator Overload
 // BlackBoxTest Case #1 (?)
 MyMatrix MyMatrix::operator-(const MyMatrix& rhs) {
-	return MyMatrix(1, 1, 1);
+	MyMatrix operationResult(this->rows, this->columns, 0);
+	if (this->isDefined('-', rhs)) {
+		for (int i = 0; i < this->rows; i++) {
+			for (int j = 0; j < this->columns; j++) {
+				operationResult.matrixValues[i][j] = this->matrixValues[i][j] - rhs.matrixValues[i][j];
+			}
+		}
+	}
+	else {
+		std::cout << "Subtraction operation could not be done. Matrices are not Defined.";
+	}
+	return operationResult;
 }
 
 // Multiply Operator Overload
 // WhiteBoxTest Case #2 (?)
 MyMatrix MyMatrix::operator*(const MyMatrix& rhs) {
-	return MyMatrix(1, 1, 1);
+	MyMatrix operationResult(this->rows, rhs.columns, 0);
+
+	if (this->isDefined('*', rhs)) {
+
+		// Matrix A Iteration Loop
+		for (int i = 0; i < this->rows; i++) {
+			for (int j = 0; j < rhs.columns; j++) {
+				// Matrix B Column Loop
+				for (int k = 0; k < rhs.rows; k++) {
+					// Result [i][j]
+					// A | a00 a01 a02 | * B | b00 b01 |
+					//   | a10 a11 a12 |     | b10 b11 |
+					//						 | b20 b21 |
+					// = R | (a00*b00 + a01*b10 + a02*b20) (a00*b01 + a01*b11 + a02*b21) |
+					//	   | (a10*b00 + a11*b10 + a12*b20) (a10*b01 + a11*b11 + a12*b21) |
+					// 
+					// 1st Iteration
+					// (a00*b00 + a01*b10 + a02*b20)	i = 0
+					//   ik  kj    ik  kj    ik  kj 	j = 0
+					//									k = 0 ... 2
+					// 2nd Iteration
+					// (a00*b01 + a01*b11 + a02*b21)	i = 0
+					//   ik  kj    ik  kj    ik  kj		j = 1
+					//									k = 0 ... 2
+					operationResult.matrixValues[i][j] = operationResult.matrixValues[i][j]
+														 + (this->matrixValues[i][k] * rhs.matrixValues[k][j]);
+				}
+			}
+		}
+	}
+	else {
+		std::cout << "Addition operation could not be done. Matrices are not Defined.";
+	}
+	return operationResult;
 }
 
 // Multiply Operator Overload - By a Scalar
 // BlackBoxTest Case 2 (?)
 MyMatrix MyMatrix::operator*(const int rhs) {
-	return MyMatrix(1, 1, 1);
+	MyMatrix operationResult(this->rows, this->columns, 0);
+	for (int i = 0; i < this->rows; i++) {
+		for (int j = 0; j < this->columns; j++) {
+			operationResult.matrixValues[i][j] = this->matrixValues[i][j] * rhs;
+		}
+	}
+	return operationResult;
 }
 
 // Division Operator Overload
@@ -100,12 +161,23 @@ MyMatrix MyMatrix::operator/(const MyMatrix& rhs) {
 // Division Operator Overload - By a Scalar
 // BlackBoxTest Case #3 (?)
 MyMatrix MyMatrix::operator/(const int rhs) {
-	return MyMatrix(1, 1, 1);
+	MyMatrix operationResult(this->rows, this->columns, 0);
+	for (int i = 0; i < this->rows; i++) {
+		for (int j = 0; j < this->columns; j++) {
+			operationResult.matrixValues[i][j] = this->matrixValues[i][j] / rhs;
+		}
+	}
+	return operationResult;
 }
 
 // Assignment Operator Overload
 MyMatrix MyMatrix::operator=(const MyMatrix& rhs) {
-	return MyMatrix(1, 1, 1);
+	for (int i = 0; i < this->rows; i++) {
+		for (int j = 0; j < this->columns; j++) {
+			this->matrixValues[i][j] = rhs.matrixValues[i][j];
+		}
+	}
+	return *this;
 }
 
 // Verifies if this Matrix is defined in relation to rhs
@@ -115,7 +187,25 @@ MyMatrix MyMatrix::operator=(const MyMatrix& rhs) {
 // Returns a boolean which allows or not that denoted operation
 // WhiteBoxTest Case #4 (?)
 bool MyMatrix::isDefined(char operation, const MyMatrix& rhs) {
-	return false;
+	if (operation == '+' || operation == '-') {
+		if (this->rows == rhs.rows && this->columns == rhs.columns) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else if (operation == '*' || operation == '/') {
+		if (this->columns == rhs.rows) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		throw("Exception: Invalid Operation argument on a isDefined call.");
+	}
 }
 
 // Returns its Identity Matrix
@@ -151,11 +241,11 @@ MyMatrix MyMatrix::getInverseMatrix2x2() {
 
 // Outputs the values of the matrix visually on the console
 void MyMatrix::printMatrix() {
-	std::cout << "This is a " << rows << "x" << columns << " matrix" << std::endl;
-	for (int i = 0; i < rows; i++) {
+	std::cout << "This is a " << this->rows << "x" << this->columns << " matrix" << std::endl;
+	for (int i = 0; i < this->rows; i++) {
 		std::cout << "|   ";
-		for (int j = 0; j < columns; j++) {
-			std::cout << matrixValues[i][j] << "   ";
+		for (int j = 0; j < this->columns; j++) {
+			std::cout << this->matrixValues[i][j] << "   ";
 		}
 		std::cout << "|" << std::endl;
 	}
