@@ -1,8 +1,22 @@
 #include "MyMatrix.h"
 
 #include <iostream>
+#include <gtest/gtest.h>
 
-void operatorsTest() {
+// Global Variables for Test Purpose
+MyMatrix g_ma(3, 3, 1);
+MyMatrix g_mb(3, 3, 2);
+MyMatrix g_mc({ {10, 20},
+				{30, 40} });
+MyMatrix g_md({ {1, 2},
+				{3, 4} });
+
+MyMatrix g_maADDb(3, 3, 3);
+MyMatrix g_maMULb(3, 3, 6);
+MyMatrix g_mcDIV2({ { 5, 10},
+				    {15, 20} });
+
+void myMatrixTests() {
 
 	try {
 		std::cout << "Matrix A:" << std::endl;
@@ -12,9 +26,9 @@ void operatorsTest() {
 		MyMatrix mb(3, 3, 1);
 		mb.printMatrix();
 		std::cout << "\nMatrix C:" << std::endl;
-		MyMatrix mc( { {1, 4, 5}, 
-					   {3,-1, 9}, 
-					   {0, 2, 6} } );
+		MyMatrix mc({ {1, 4, 5},
+					   {3,-1, 9},
+					   {0, 2, 6} });
 		mc.printMatrix();
 		mc.getIdentityMatrix().printMatrix();
 
@@ -48,7 +62,7 @@ void operatorsTest() {
 		mxs.printMatrix();
 
 		ma.matrixValues = { {3, 4},
-						    {1, 2} };
+							{1, 2} };
 		std::cout << "Identity Matrix: \n";
 		MyMatrix id2x2 = ma.getIdentityMatrix();
 		id2x2.printMatrix();
@@ -72,8 +86,37 @@ void operatorsTest() {
 	return;
 }
 
-int main(int argc, char** argv) {
-	operatorsTest();
+// WhiteBoxTest Case #1 MyMatrix operator+(const MyMatrix& rhs);
+TEST(WhiteBoxTestCases, WBTCase1) {
+	EXPECT_EQ(g_maADDb, g_ma + g_mb);
+}
 
-	return EXIT_SUCCESS;
+// WhiteBoxTest Case #2 MyMatrix operator*(const MyMatrix& rhs);
+TEST(WhiteBoxTestCases, WBTCase2) {
+	EXPECT_EQ(g_maMULb, g_ma * g_mb);
+}
+
+// WhiteBoxTest Case #3 MyMatrix& operator/=(const float rhs);
+TEST(WhiteBoxTestCases, WBTCase3) {
+	EXPECT_EQ(g_mcDIV2, g_mc /= 2);
+}
+
+// WhiteBoxTest Case #4 bool isDefined(char operation, const MyMatrix& rhs);
+// Operation '%' mod is not a valid argument for isDefined method
+TEST(WhiteBoxTestCases, WBTCase4) {
+	EXPECT_THROW( g_ma.isDefined('%', g_mb), std::invalid_argument);
+}
+
+// WhiteBoxTest Case #5 float getDeterminant2x2();
+TEST(WhiteBoxTestCases, WBTCase5) {
+	EXPECT_EQ(-2, g_md.getDeterminant2x2());
+}
+
+int main(int argc, char** argv) {
+	//myMatrixTests();
+
+	::testing::InitGoogleTest(&argc, argv);
+	int result = RUN_ALL_TESTS();
+
+	return result;
 }

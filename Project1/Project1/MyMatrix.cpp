@@ -210,8 +210,7 @@ bool MyMatrix::isDefined(char operation, const MyMatrix& rhs) {
 		}
 	}
 	else {
-		std::cout << "Exception: Invalid Operation argument on a isDefined call." << std::endl;
-		return false;
+		throw std::invalid_argument("Invalid Operation argument on isDefined() method.");
 	}
 }
 
@@ -285,4 +284,20 @@ void MyMatrix::printMatrix() {
 		}
 		std::cout << "|" << std::endl;
 	}
+}
+
+
+// Compare Operator Overload
+bool operator==(const MyMatrix& rhs, const MyMatrix& lhs) {
+	if (rhs.rows == rhs.rows && rhs.columns == rhs.columns) {
+		for (int i = 0; i < rhs.rows; i++) {
+			for (int j = 0; j < rhs.columns; j++) {
+				if (rhs.matrixValues[i][j] != rhs.matrixValues[i][j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	return false;
 }

@@ -95,3 +95,6 @@ public:
 	// Outputs the values of the matrix visually on the console
 	void printMatrix();
 };
+
+// Compare Operator Overload
+bool operator==(const MyMatrix& rhs, const MyMatrix& lhs);
