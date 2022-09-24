@@ -16,6 +16,7 @@ void operatorsTest() {
 					   {3,-1, 9}, 
 					   {0, 2, 6} } );
 		mc.printMatrix();
+		mc.getIdentityMatrix().printMatrix();
 
 
 		MyMatrix madd = mb + mc;
@@ -38,13 +39,31 @@ void operatorsTest() {
 		MyMatrix mf({ {1, 2},
 					  {3, 4} });
 		mf.printMatrix();
-		int det = mf.getDeterminant2x2();
+		float det = mf.getDeterminant2x2();
 		std::cout << "Previous matrix determinant is: " << det << std::endl;
 
 		MyMatrix mxs = mf * 10;
 		mxs.printMatrix();
 		mxs = mxs / 2;
 		mxs.printMatrix();
+
+		ma.matrixValues = { {3, 4},
+						    {1, 2} };
+		std::cout << "Identity Matrix: \n";
+		MyMatrix id2x2 = ma.getIdentityMatrix();
+		id2x2.printMatrix();
+
+
+		std::cout << "Inverse of a Identity Matrix: \n";
+		id2x2.getIdentityMatrix().printMatrix();
+
+		std::cout << "Inverted Matrix: \n";
+		MyMatrix invertedMxs = ma.getInverseMatrix2x2();
+		invertedMxs.printMatrix();
+
+		std::cout << "Matrix( ma * invertedMxs ): \n";
+		MyMatrix invertedXmatrix = ma * invertedMxs;
+		invertedXmatrix.printMatrix();
 
 	}
 	catch (const char* error) {

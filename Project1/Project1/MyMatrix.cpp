@@ -19,7 +19,7 @@ MyMatrix::MyMatrix(unsigned int rows, unsigned int columns) {
 
 // Overloaded Constructor
 // Accepts a value and number of rows and columns and fill the matrix with the same value
-MyMatrix::MyMatrix(unsigned int rows, unsigned int columns, int value) {
+MyMatrix::MyMatrix(unsigned int rows, unsigned int columns, float value) {
 	// Set values for rows and columns
 	this->rows = rows;
 	this->columns = columns;
@@ -33,7 +33,7 @@ MyMatrix::MyMatrix(unsigned int rows, unsigned int columns, int value) {
 
 // Overloaded Constructor
 // Accepts a 2D vector and assignt it to the Matrix 
-MyMatrix::MyMatrix(std::vector< std::vector<int> > newValues) {
+MyMatrix::MyMatrix(std::vector< std::vector<float> > newValues) {
 	// Set values for rows and columns
 	this->rows = newValues.size();
 	this->columns = newValues[0].size();
@@ -143,7 +143,7 @@ MyMatrix MyMatrix::operator*(const MyMatrix& rhs) {
 
 // Multiply Operator Overload - By a Scalar
 // BlackBoxTest Case 2 (?)
-MyMatrix MyMatrix::operator*(const int rhs) {
+MyMatrix MyMatrix::operator*(const float rhs) {
 	MyMatrix operationResult(this->rows, this->columns, 0);
 	for (int i = 0; i < this->rows; i++) {
 		for (int j = 0; j < this->columns; j++) {
@@ -153,15 +153,20 @@ MyMatrix MyMatrix::operator*(const int rhs) {
 	return operationResult;
 }
 
-// Division Operator Overload
+// Division & Assign Operator Overload - By a Scalar
 // WhiteBoxTest Case #3 (?)
-MyMatrix MyMatrix::operator/(const MyMatrix& rhs) {
-	return MyMatrix(1, 1, 1);
+MyMatrix& MyMatrix::operator/=(const float rhs) {
+	for (int i = 0; i < this->rows; i++) {
+		for (int j = 0; j < this->columns; j++) {
+			this->matrixValues[i][j] = this->matrixValues[i][j] / rhs;
+		}
+	}
+	return *this;
 }
 
 // Division Operator Overload - By a Scalar
 // BlackBoxTest Case #3 (?)
-MyMatrix MyMatrix::operator/(const int rhs) {
+MyMatrix MyMatrix::operator/(const float rhs) {
 	MyMatrix operationResult(this->rows, this->columns, 0);
 	for (int i = 0; i < this->rows; i++) {
 		for (int j = 0; j < this->columns; j++) {
@@ -172,7 +177,7 @@ MyMatrix MyMatrix::operator/(const int rhs) {
 }
 
 // Assignment Operator Overload
-MyMatrix MyMatrix::operator=(const MyMatrix& rhs) {
+MyMatrix& MyMatrix::operator=(const MyMatrix& rhs) {
 	for (int i = 0; i < this->rows; i++) {
 		for (int j = 0; j < this->columns; j++) {
 			this->matrixValues[i][j] = rhs.matrixValues[i][j];
@@ -218,19 +223,31 @@ bool MyMatrix::isDefined(char operation, const MyMatrix& rhs) {
 // | 0 0 1 |
 // BlackBoxTest Case #4 (?)
 MyMatrix MyMatrix::getIdentityMatrix() {
-	return MyMatrix(1, 1, 1);
+	MyMatrix operationResult(this->rows, this->columns, 0);
+	if (this->rows == this->columns) {
+		for (int i = 0; i < this->rows; i++) {
+			operationResult.matrixValues[i][i] = 1;
+		}
+	}
+	else {
+		std::cout << "Exception: Given matrix isn't a square matrix." << std::endl;
+	}
+	return operationResult;
 }
 
 // Returns the Determinant of a 2x2 Matrix
 // | a b | Determinant = ( a * d ) - ( b * c )
 // | c d | 
 // WhiteBoxTest Case #5 (?)
-int MyMatrix::getDeterminant2x2() {
+float MyMatrix::getDeterminant2x2() {
 	if (this->rows == 2 && this->columns == 2) {
 		return (	(this->matrixValues[0][0] * this->matrixValues[1][1])
 			      -	(this->matrixValues[0][1] * this->matrixValues[1][0]) );
 	}
-	throw("Exception: Matrix type missmatch. Determinant2x2 is Requires Matrix2x2!");
+	else {
+		return 0;
+	}
+	std::cout << "Exception: Matrix type missmatch. Determinant2x2 is Requires Matrix2x2!" << std::endl;
 }
 
 // Returns the Inverted Matrix of a 2x2 Matrix
@@ -242,7 +259,20 @@ int MyMatrix::getDeterminant2x2() {
 // Matrix * Its Inverted Matrix = Identity Matrix
 // BlackBoxTest Case #5 (?)
 MyMatrix MyMatrix::getInverseMatrix2x2() {
-	return MyMatrix(1, 1, 1);
+	MyMatrix invertedMatrix2x2(this->rows, this->columns, 0);
+	if (this->rows == 2 && this->columns == 2) {
+		float det = this->getDeterminant2x2();
+		
+		invertedMatrix2x2.matrixValues = { {this->matrixValues[1][1],	 this->matrixValues[0][1]*-1},
+						                   {this->matrixValues[1][0]*-1, this->matrixValues[0][0]} };
+
+		invertedMatrix2x2 /= det;
+	}
+	else {
+		throw("Exception: Matrix type missmatch. getInverseMatrix2x2() requires Matrix2x2!" );
+	}
+
+	return invertedMatrix2x2;
 }
 
 // Outputs the values of the matrix visually on the console

@@ -10,7 +10,7 @@ public:
 	unsigned int columns;
 
 	// Values of the Matrix
-	std::vector< std::vector<int> > matrixValues;
+	std::vector< std::vector<float> > matrixValues;
 
 	// Overloaded Constructor
 	// Accepts the number of rows and columns and set the matrix
@@ -19,11 +19,11 @@ public:
 
 	// Overloaded Constructor
 	// Accepts a value and number of rows and columns and fill the matrix with the same value
-	MyMatrix(unsigned int rows, unsigned int columns, int value);
+	MyMatrix(unsigned int rows, unsigned int columns, float value);
 
 	// Overloaded Constructor
 	// Accepts a 2D vector and assignt it to the Matrix 
-	MyMatrix(std::vector< std::vector<int> > newValues);
+	MyMatrix(std::vector< std::vector<float> > newValues);
 
 	// Copy Constructor
 	// Accepts a reference of another Matrix
@@ -46,18 +46,18 @@ public:
 
 	// Multiply Operator Overload - By a Scalar
 	// BlackBoxTest Case 2 (?)
-	MyMatrix operator*(const int rhs);
+	MyMatrix operator*(const float rhs);
 
-	// Division Operator Overload
+	// Division & Assign Operator Overload - By a Scalar
 	// WhiteBoxTest Case #3 (?)
-	MyMatrix operator/(const MyMatrix& rhs);
+	MyMatrix& operator/=(const float rhs);
 
 	// Division Operator Overload - By a Scalar
 	// BlackBoxTest Case #3 (?)
-	MyMatrix operator/(const int rhs);
+	MyMatrix operator/(const float rhs);
 
 	// Assignment Operator Overload
-	MyMatrix operator=(const MyMatrix& rhs);
+	MyMatrix& operator=(const MyMatrix& rhs);
 
 	// Verifies if this Matrix is defined in relation to rhs
 	// Based a specified mathematical operation ( + - * / )
@@ -80,7 +80,7 @@ public:
 	// | a b | Determinant = ( a * d ) - ( b * c )
 	// | c d | 
 	// WhiteBoxTest Case #5 (?)
-	int getDeterminant2x2();
+	float getDeterminant2x2();
 
 	// Returns the Inverted Matrix of a 2x2 Matrix
 	// 1 / Det ( Matrix ) * Adjugate ( Matrix )
