@@ -3,6 +3,8 @@
 #include <iostream>
 #include <gtest/gtest.h>
 
+#include <BlackBoxTest.h>
+
 // Global Variables for Test Purpose
 MyMatrix g_ma(3, 3, 1);
 MyMatrix g_mb(3, 3, 2);
@@ -111,6 +113,31 @@ TEST(WhiteBoxTestCases, WBTCase4) {
 TEST(WhiteBoxTestCases, WBTCase5) {
 	EXPECT_EQ(-2, g_md.getDeterminant2x2());
 }
+
+// --------------------------------------------------
+
+// BlackBoxTest Case #1 
+// MyOtherMatrix substract(MyOtherMatrix rhs, MyOtherMatrix lhs);
+
+MyOtherMatrix g_mOa({ {1, 2},
+					  {3, 4} });
+
+TEST(BlackBoxTestCases, BBTCase1) {
+	EXPECT_EQ(-2, g_mOa.getDeterminant2x2());
+}
+
+// BlackBoxTest Case #2
+// MyOtherMatrix multiplication(MyOtherMatrix rhs, float lhs);
+
+// BlackBoxTest Case #3
+// MyOtherMatrix division(MyOtherMatrix rhs, float scalar);
+
+// BlackBoxTest Case #4
+// MyOtherMatrix getIdentity(MyOtherMatrix m);
+
+// BlackBoxTest Case #5
+// MyOtherMatrix getInverse2x2(MyOtherMatrix m);
+
 
 int main(int argc, char** argv) {
 	//myMatrixTests();

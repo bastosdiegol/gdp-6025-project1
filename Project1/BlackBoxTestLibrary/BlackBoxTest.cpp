@@ -18,11 +18,11 @@ MyOtherMatrix division(MyOtherMatrix rhs, float scalar) {
 }
 // BlackBoxTest Case #4
 // MyOtherMatrix getIdentityMatrix();
-MyOtherMatrix substract(MyOtherMatrix m) {
+MyOtherMatrix getIdentity(MyOtherMatrix m) {
 	return m.getIdentityMatrix();
 }
 // BlackBoxTest Case #5
 // MyOtherMatrix getInverseMatrix2x2();
-MyOtherMatrix substract(MyOtherMatrix m) {
+MyOtherMatrix getInverse2x2(MyOtherMatrix m) {
 	return m.getInverseMatrix2x2();
 }

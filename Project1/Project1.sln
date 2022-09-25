@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project1", "Project1\Project1.vcxproj", "{96B2106E-1EBB-4820-A404-2CBC849F7404}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905} = {EC992E8C-B8DC-4C00-98BA-CF144CD60905}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlackBoxTestLibrary", "BlackBoxTestLibrary\BlackBoxTestLibrary.vcxproj", "{EC992E8C-B8DC-4C00-98BA-CF144CD60905}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,14 @@ Global
 		{96B2106E-1EBB-4820-A404-2CBC849F7404}.Release|x64.Build.0 = Release|x64
 		{96B2106E-1EBB-4820-A404-2CBC849F7404}.Release|x86.ActiveCfg = Release|Win32
 		{96B2106E-1EBB-4820-A404-2CBC849F7404}.Release|x86.Build.0 = Release|Win32
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905}.Debug|x64.ActiveCfg = Debug|x64
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905}.Debug|x64.Build.0 = Debug|x64
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905}.Debug|x86.ActiveCfg = Debug|Win32
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905}.Debug|x86.Build.0 = Debug|Win32
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905}.Release|x64.ActiveCfg = Release|x64
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905}.Release|x64.Build.0 = Release|x64
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905}.Release|x86.ActiveCfg = Release|Win32
+		{EC992E8C-B8DC-4C00-98BA-CF144CD60905}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
