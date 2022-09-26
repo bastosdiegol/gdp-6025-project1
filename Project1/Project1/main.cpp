@@ -2,10 +2,9 @@
 
 #include <iostream>
 #include <gtest/gtest.h>
+#include <MyOtherMatrix.h>
 
-#include <BlackBoxTest.h>
-
-// Global Variables for Test Purpose
+// Variables for White Box Tests
 MyMatrix g_ma(3, 3, 1);
 MyMatrix g_mb(3, 3, 2);
 MyMatrix g_mc({ {10, 20},
@@ -18,75 +17,6 @@ MyMatrix g_maMULb(3, 3, 6);
 MyMatrix g_mcDIV2({ { 5, 10},
 				    {15, 20} });
 
-void myMatrixTests() {
-
-	try {
-		std::cout << "Matrix A:" << std::endl;
-		MyMatrix ma(2, 2, 2);
-		ma.printMatrix();
-		std::cout << "\nMatrix B:" << std::endl;
-		MyMatrix mb(3, 3, 1);
-		mb.printMatrix();
-		std::cout << "\nMatrix C:" << std::endl;
-		MyMatrix mc({ {1, 4, 5},
-					   {3,-1, 9},
-					   {0, 2, 6} });
-		mc.printMatrix();
-		mc.getIdentityMatrix().printMatrix();
-
-
-		MyMatrix madd = mb + mc;
-		madd.printMatrix();
-
-		// Matrices Not Defined - Exception
-		// MyMatrix msub = mb - ma; 
-		// msub.printMatrix();
-
-		MyMatrix md({ {1, 2, 3},
-					  {4, 5, 6} });
-		md.printMatrix();
-		MyMatrix me({ {7,   8},
-					  {9,  10},
-					  {11, 12} });
-		me.printMatrix();
-		MyMatrix mx = md * me;
-		mx.printMatrix();
-
-		MyMatrix mf({ {1, 2},
-					  {3, 4} });
-		mf.printMatrix();
-		float det = mf.getDeterminant2x2();
-		std::cout << "Previous matrix determinant is: " << det << std::endl;
-
-		MyMatrix mxs = mf * 10;
-		mxs.printMatrix();
-		mxs = mxs / 2;
-		mxs.printMatrix();
-
-		ma.matrixValues = { {3, 4},
-							{1, 2} };
-		std::cout << "Identity Matrix: \n";
-		MyMatrix id2x2 = ma.getIdentityMatrix();
-		id2x2.printMatrix();
-
-
-		std::cout << "Inverse of a Identity Matrix: \n";
-		id2x2.getIdentityMatrix().printMatrix();
-
-		std::cout << "Inverted Matrix: \n";
-		MyMatrix invertedMxs = ma.getInverseMatrix2x2();
-		invertedMxs.printMatrix();
-
-		std::cout << "Matrix( ma * invertedMxs ): \n";
-		MyMatrix invertedXmatrix = ma * invertedMxs;
-		invertedXmatrix.printMatrix();
-
-	}
-	catch (const char* error) {
-		std::cout << error << std::endl;
-	}
-	return;
-}
 
 // WhiteBoxTest Case #1 MyMatrix operator+(const MyMatrix& rhs);
 TEST(WhiteBoxTestCases, WBTCase1) {
@@ -114,39 +44,60 @@ TEST(WhiteBoxTestCases, WBTCase5) {
 	EXPECT_EQ(-2, g_md.getDeterminant2x2());
 }
 
-// --------------------------------------------------
+
+/*-----------------------------------------------------------*/
+
+/*-----------------------------------------------------------*/
 
 
-
+// Variables for Black Box Tests
 MyOtherMatrix g_mOa({ {1, 2},
 					  {3, 4} });
 MyOtherMatrix g_mOb({ {0, 1},
 					  {2, 3} });
+MyOtherMatrix g_mOc({ {10, 20},
+					  {30, 40} });
 MyOtherMatrix g_mOcase1Result({ {1, 1},
 							    {1, 1} });
+MyOtherMatrix g_mOcase2Result({ {7,  14},
+								{21, 28} });
+MyOtherMatrix g_mOcase3Result({ {5,  10},
+								{15, 20} });
+MyOtherMatrix g_mOcase4ResultC({ {1, 0},
+								 {0, 1} });
+MyOtherMatrix g_mOcase4ResultW({ {1, 0, 0},
+							 	 {0, 1, 0},
+							 	 {0, 0, 1} });
+MyOtherMatrix g_mOcase5Result({ { -2,    1},
+								{1.5, -0.5} });
 
-
-// BlackBoxTest Case #1 
 // BlackBoxTest Case #1 MyOtherMatrix operator-(const MyOtherMatrix& rhs);
 TEST(BlackBoxTestCases, BBTCase1) {
 	EXPECT_EQ(g_mOcase1Result, g_mOa - g_mOb);
 }
 
-// BlackBoxTest Case #2
-// MyOtherMatrix multiplication(MyOtherMatrix rhs, float lhs);
+// BlackBoxTest Case #2 MyOtherMatrix operator*(const float rhs);
+TEST(BlackBoxTestCases, BBTCase2) {
+	EXPECT_EQ(g_mOcase2Result, g_mOa * 7);
+}
 
-// BlackBoxTest Case #3
-// MyOtherMatrix division(MyOtherMatrix rhs, float scalar);
+// BlackBoxTest Case #3 MyOtherMatrix operator/(const float rhs);
+TEST(BlackBoxTestCases, BBTCase3) {
+	EXPECT_EQ(g_mOcase3Result, g_mOc / 2);
+}
 
-// BlackBoxTest Case #4
-// MyOtherMatrix getIdentity(MyOtherMatrix m);
+// BlackBoxTest Case #4 MyOtherMatrix getIdentity(MyOtherMatrix m);
+TEST(BlackBoxTestCases, BBTCase4) {
+	EXPECT_EQ(g_mOcase4ResultC, g_mOa.getIdentityMatrix());
+}
 
-// BlackBoxTest Case #5
-// MyOtherMatrix getInverse2x2(MyOtherMatrix m);
+// BlackBoxTest Case #5 MyOtherMatrix getInverse2x2(MyOtherMatrix m);
+TEST(BlackBoxTestCases, BBTCase5) {
+	EXPECT_EQ(g_mOcase5Result, g_mOa.getInverseMatrix2x2());
+}
 
 
 int main(int argc, char** argv) {
-	//myMatrixTests();
 
 	::testing::InitGoogleTest(&argc, argv);
 	int result = RUN_ALL_TESTS();

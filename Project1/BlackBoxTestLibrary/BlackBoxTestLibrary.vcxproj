@@ -158,13 +158,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BlackBoxTest.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MyOtherMatrix.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BlackBoxTest.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="MyOtherMatrix.cpp" />
     <ClCompile Include="pch.cpp">

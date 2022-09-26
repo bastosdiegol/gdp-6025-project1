@@ -4,5 +4,4 @@
 // Windows Header Files
 #include <windows.h>
 
-#include "BlackBoxTest.h"
 #include "MyOtherMatrix.h"

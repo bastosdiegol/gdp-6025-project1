@@ -290,10 +290,10 @@ void MyOtherMatrix::printMatrix() {
 
 // Compare Operator Overload
 bool operator==(const MyOtherMatrix& rhs, const MyOtherMatrix& lhs) {
-	if (rhs.rows == rhs.rows && rhs.columns == rhs.columns) {
+	if (rhs.rows == lhs.rows && rhs.columns == lhs.columns) {
 		for (int i = 0; i < rhs.rows; i++) {
 			for (int j = 0; j < rhs.columns; j++) {
-				if (rhs.matrixValues[i][j] != rhs.matrixValues[i][j]) {
+				if (rhs.matrixValues[i][j] != lhs.matrixValues[i][j]) {
 					return false;
 				}
 			}
