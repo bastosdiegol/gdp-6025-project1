@@ -1,7 +1,14 @@
 #pragma once
+#include "pch.h"
 #include <vector>
 
-class MyOtherMatrix {
+#ifdef BLACKBOXTESTLIBRARY_EXPORTS
+#define BLACKBOXTEST_API __declspec(dllexport)
+#else
+#define BLACKBOXTEST_API __declspec(dllimport)
+#endif
+
+class BLACKBOXTEST_API MyOtherMatrix {
 private:
 
 public:
@@ -94,7 +101,8 @@ public:
 
 	// Outputs the values of the matrix visually on the console
 	void printMatrix();
+
 };
 
 // Compare Operator Overload
-bool operator==(const MyOtherMatrix& rhs, const MyOtherMatrix& lhs);
+BLACKBOXTEST_API bool operator==(const MyOtherMatrix& rhs, const MyOtherMatrix& lhs);

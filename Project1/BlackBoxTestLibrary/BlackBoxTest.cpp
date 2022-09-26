@@ -1,6 +1,10 @@
 #include "BlackBoxTest.h"
 #include "pch.h"
 
+int sum(int a, int b) {
+	return a+b;
+}
+
 // BlackBoxTest Case #1 
 // MyOtherMatrix operator-(const MyOtherMatrix& rhs);
 MyOtherMatrix substract(MyOtherMatrix rhs, MyOtherMatrix lhs) {

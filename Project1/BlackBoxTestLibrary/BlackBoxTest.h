@@ -1,5 +1,6 @@
 #pragma once
 #include "MyOtherMatrix.h"
+#include "pch.h"
 
 #ifdef BLACKBOXTESTLIBRARY_EXPORTS
 #define BLACKBOXTEST_API __declspec(dllexport)
@@ -12,6 +13,8 @@
 // the headers we defined
 extern "C"
 {
+	// test
+	BLACKBOXTEST_API int sum(int a, int b);
 	// BlackBoxTest Case #1 MyOtherMatrix operator-(const MyOtherMatrix& rhs);
 	BLACKBOXTEST_API MyOtherMatrix substract(MyOtherMatrix rhs, MyOtherMatrix lhs);
 	// BlackBoxTest Case #2 MyOtherMatrix operator*(const float rhs);

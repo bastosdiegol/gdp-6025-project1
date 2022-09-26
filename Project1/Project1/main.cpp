@@ -116,14 +116,20 @@ TEST(WhiteBoxTestCases, WBTCase5) {
 
 // --------------------------------------------------
 
-// BlackBoxTest Case #1 
-// MyOtherMatrix substract(MyOtherMatrix rhs, MyOtherMatrix lhs);
+
 
 MyOtherMatrix g_mOa({ {1, 2},
 					  {3, 4} });
+MyOtherMatrix g_mOb({ {0, 1},
+					  {2, 3} });
+MyOtherMatrix g_mOcase1Result({ {1, 1},
+							    {1, 1} });
 
+
+// BlackBoxTest Case #1 
+// BlackBoxTest Case #1 MyOtherMatrix operator-(const MyOtherMatrix& rhs);
 TEST(BlackBoxTestCases, BBTCase1) {
-	EXPECT_EQ(-2, g_mOa.getDeterminant2x2());
+	EXPECT_EQ(g_mOcase1Result, g_mOa - g_mOb);
 }
 
 // BlackBoxTest Case #2
