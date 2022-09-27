@@ -1,8 +1,8 @@
 #include "MyMatrix.h"
+#include "MyOtherMatrix.h"
 
 #include <iostream>
 #include <gtest/gtest.h>
-#include <MyOtherMatrix.h>
 
 // Variables for White Box Tests
 MyMatrix g_ma(3, 3, 1);

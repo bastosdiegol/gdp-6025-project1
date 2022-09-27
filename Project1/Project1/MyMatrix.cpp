@@ -68,7 +68,7 @@ MyMatrix::~MyMatrix() {
 }
 
 // Addition Operator Overload
-// WhiteBoxTest Case #1 (?)
+// WhiteBoxTest Case #1
 MyMatrix MyMatrix::operator+(const MyMatrix& rhs) {
 	MyMatrix operationResult(this->rows, this->columns, 0);
 	if (this->isDefined('+', rhs)) {
@@ -85,7 +85,7 @@ MyMatrix MyMatrix::operator+(const MyMatrix& rhs) {
 }
 
 // Subtract Operator Overload
-// BlackBoxTest Case #1 (?)
+// BlackBoxTest Case #1
 MyMatrix MyMatrix::operator-(const MyMatrix& rhs) {
 	MyMatrix operationResult(this->rows, this->columns, 0);
 	if (this->isDefined('-', rhs)) {
@@ -103,7 +103,7 @@ MyMatrix MyMatrix::operator-(const MyMatrix& rhs) {
 }
 
 // Multiply Operator Overload
-// WhiteBoxTest Case #2 (?)
+// WhiteBoxTest Case #2
 MyMatrix MyMatrix::operator*(const MyMatrix& rhs) {
 	MyMatrix operationResult(this->rows, rhs.columns, 0);
 
@@ -142,7 +142,7 @@ MyMatrix MyMatrix::operator*(const MyMatrix& rhs) {
 }
 
 // Multiply Operator Overload - By a Scalar
-// BlackBoxTest Case 2 (?)
+// BlackBoxTest Case 2
 MyMatrix MyMatrix::operator*(const float rhs) {
 	MyMatrix operationResult(this->rows, this->columns, 0);
 	for (int i = 0; i < this->rows; i++) {
@@ -154,7 +154,7 @@ MyMatrix MyMatrix::operator*(const float rhs) {
 }
 
 // Division & Assign Operator Overload - By a Scalar
-// WhiteBoxTest Case #3 (?)
+// WhiteBoxTest Case #3
 MyMatrix& MyMatrix::operator/=(const float rhs) {
 	for (int i = 0; i < this->rows; i++) {
 		for (int j = 0; j < this->columns; j++) {
@@ -165,7 +165,7 @@ MyMatrix& MyMatrix::operator/=(const float rhs) {
 }
 
 // Division Operator Overload - By a Scalar
-// BlackBoxTest Case #3 (?)
+// BlackBoxTest Case #3
 MyMatrix MyMatrix::operator/(const float rhs) {
 	MyMatrix operationResult(this->rows, this->columns, 0);
 	for (int i = 0; i < this->rows; i++) {
@@ -191,7 +191,7 @@ MyMatrix& MyMatrix::operator=(const MyMatrix& rhs) {
 // On + and - it is Defined when both Matrices rows and columns matches
 // On * and / it is Defined when 1st Matrix Columns matches 2nd Matrix Rows
 // Returns a boolean which allows or not that denoted operation
-// WhiteBoxTest Case #4 (?)
+// WhiteBoxTest Case #4
 bool MyMatrix::isDefined(char operation, const MyMatrix& rhs) {
 	if (operation == '+' || operation == '-') {
 		if (this->rows == rhs.rows && this->columns == rhs.columns) {
@@ -220,7 +220,7 @@ bool MyMatrix::isDefined(char operation, const MyMatrix& rhs) {
 // | 1 0 0 |
 // | 0 1 0 |
 // | 0 0 1 |
-// BlackBoxTest Case #4 (?)
+// BlackBoxTest Case #4
 MyMatrix MyMatrix::getIdentityMatrix() {
 	MyMatrix operationResult(this->rows, this->columns, 0);
 	if (this->rows == this->columns) {
@@ -237,7 +237,7 @@ MyMatrix MyMatrix::getIdentityMatrix() {
 // Returns the Determinant of a 2x2 Matrix
 // | a b | Determinant = ( a * d ) - ( b * c )
 // | c d | 
-// WhiteBoxTest Case #5 (?)
+// WhiteBoxTest Case #5
 float MyMatrix::getDeterminant2x2() {
 	if (this->rows == 2 && this->columns == 2) {
 		return (	(this->matrixValues[0][0] * this->matrixValues[1][1])
@@ -256,7 +256,7 @@ float MyMatrix::getDeterminant2x2() {
 // | a b | Adjugate = |  d  -b |
 // | c d |            | -c   a |
 // Matrix * Its Inverted Matrix = Identity Matrix
-// BlackBoxTest Case #5 (?)
+// BlackBoxTest Case #5
 MyMatrix MyMatrix::getInverseMatrix2x2() {
 	MyMatrix invertedMatrix2x2(this->rows, this->columns, 0);
 	if (this->rows == 2 && this->columns == 2) {
@@ -287,7 +287,7 @@ void MyMatrix::printMatrix() {
 }
 
 
-// Compare Operator Overload
+// Compare Operator Override
 bool operator==(const MyMatrix& rhs, const MyMatrix& lhs) {
 	if (rhs.rows == lhs.rows && rhs.columns == lhs.columns) {
 		for (int i = 0; i < rhs.rows; i++) {

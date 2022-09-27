@@ -33,27 +33,27 @@ public:
 	~MyMatrix();
 
 	// Assignment Operator Overload
-	// WhiteBoxTest Case #1 (?)
+	// WhiteBoxTest Case #1
 	MyMatrix operator+(const MyMatrix& rhs);
 
 	// Subtract Operator Overload
-	// BlackBoxTest Case #1 (?)
+	// BlackBoxTest Case #1
 	MyMatrix operator-(const MyMatrix& rhs);
 
 	// Multiply Operator Overload
-	// WhiteBoxTest Case #2 (?)
+	// WhiteBoxTest Case #2
 	MyMatrix operator*(const MyMatrix& rhs);
 
 	// Multiply Operator Overload - By a Scalar
-	// BlackBoxTest Case 2 (?)
+	// BlackBoxTest Case 2
 	MyMatrix operator*(const float rhs);
 
 	// Division & Assign Operator Overload - By a Scalar
-	// WhiteBoxTest Case #3 (?)
+	// WhiteBoxTest Case #3
 	MyMatrix& operator/=(const float rhs);
 
 	// Division Operator Overload - By a Scalar
-	// BlackBoxTest Case #3 (?)
+	// BlackBoxTest Case #3
 	MyMatrix operator/(const float rhs);
 
 	// Assignment Operator Overload
@@ -64,7 +64,7 @@ public:
 	// On + and - it is Defined when both Matrices rows and columns matches
 	// On * and / it is Defined when 1st Matrix Columns matches 2nd Matrix Rows
 	// Returns a boolean which allows or not that denoted operation
-	// WhiteBoxTest Case #4 (?)
+	// WhiteBoxTest Case #4
 	bool isDefined(char operation, const MyMatrix& rhs);
 
 	// Returns its Identity Matrix
@@ -73,7 +73,7 @@ public:
 	// | 1 0 0 |
 	// | 0 1 0 |
 	// | 0 0 1 |
-	// BlackBoxTest Case #4 (?)
+	// BlackBoxTest Case #4
 	MyMatrix getIdentityMatrix();
 
 	// Returns the Determinant of a 2x2 Matrix
@@ -89,12 +89,12 @@ public:
 	// | a b | Adjugate = |  d  -b |
 	// | c d |            | -c   a |
 	// Matrix * Its Inverted Matrix = Identity Matrix
-	// BlackBoxTest Case #5 (?)
+	// BlackBoxTest Case #5
 	MyMatrix getInverseMatrix2x2();
 
 	// Outputs the values of the matrix visually on the console
 	void printMatrix();
 };
 
-// Compare Operator Overload
+// Compare Operator Override
 bool operator==(const MyMatrix& rhs, const MyMatrix& lhs);
